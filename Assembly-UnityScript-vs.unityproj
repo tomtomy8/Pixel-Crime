@@ -5,7 +5,7 @@
 	<Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
 	<ProductVersion>10.0.20506</ProductVersion>
 	<SchemaVersion>2.0</SchemaVersion>
-	<ProjectGuid>{B098C2D7-285D-C1B2-303A-F3E721F0ECAF}</ProjectGuid>
+	<ProjectGuid>{EA140BE7-1615-5CE7-73E1-CDE4C85B9968}</ProjectGuid>
 	<OutputType>Library</OutputType>
 	<AppDesignerFolder>Properties</AppDesignerFolder>
 	<RootNamespace></RootNamespace>
@@ -48,7 +48,6 @@
   <ItemGroup>
      <Compile Include="Assets\Scripts\Battle.js" />
      <Compile Include="Assets\Scripts\Brawler.js" />
-     <Compile Include="Assets\Scripts\directionStates.js" />
  <Reference Include="UnityEngine.UI">
  <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
  </Reference>

@@ -1,13 +1,10 @@
 ﻿#pragma strict
 
-var name : String;
 var isPlayer : boolean;
 var isBoss : boolean;
 var difficulty : int;
-var attack : float;
-var defense : float;
-var speed : float;
-var health : int;
+var myClass : Class;
+
 
 var childCollider : BoxCollider2D;
 
@@ -34,18 +31,21 @@ function Start () {
 	collider2Y = collider2.offset.y;
 	collider1X = collider1.offset.x;
 	collider2X = collider2.offset.x;
+	
 }
 
 function FixedUpdate () {
 	Move();
 	checkColliderDirection();
-	if(Input.GetKeyDown("d")) {
-		direction = "right";
-	} else if(Input.GetKeyDown("a")) {
-		direction = "left"; 
-	} else if (!Input.anyKey){
-		direction = null;
-	} 
+	if(isPlayer) {
+		if(Input.GetKeyDown("d")) {
+			direction = "right";
+		} else if(Input.GetKeyDown("a")) {
+			direction = "left"; 
+		} else if (!Input.anyKey){
+			direction = null;
+		} 
+	}
 }
 
 function Move () {

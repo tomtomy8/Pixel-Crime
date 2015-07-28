@@ -11,6 +11,12 @@ private var healthBarG : UI.Image;
 private var healthBarW2 : UI.Image;
 private var healthBarG2 : UI.Image;
 
+private var canvasText : UI.Text;
+private var canvasText2 : UI.Text;
+
+private var health1divider : float;
+private var health2divider : float;
+
 function Start () {
 	healthBarW = healthBarCanvas.transform.GetChild(0).gameObject.GetComponent(UI.Image);
 	healthBarG = healthBarCanvas.transform.GetChild(1).gameObject.GetComponent(UI.Image);
@@ -18,14 +24,19 @@ function Start () {
 	healthBarW2 = healthBarCanvas2.transform.GetChild(0).gameObject.GetComponent(UI.Image);
 	healthBarG2 = healthBarCanvas2.transform.GetChild(1).gameObject.GetComponent(UI.Image);
 	
-	var canvasText = healthBarW.GetComponentInChildren(UI.Text);
-	var canvasText2 = healthBarW2.GetComponentInChildren(UI.Text);
+	canvasText = healthBarW.GetComponentInChildren(UI.Text);
+	canvasText2 = healthBarW2.GetComponentInChildren(UI.Text);
 	
-	//canvasText.Text(brawlers[0].toString());
+	health1divider = brawlers[0].myClass.health/healthBarW.rectTransform.right.x;
+	health2divider = brawlers[1].myClass.health/healthBarW2.rectTransform.right.x;
 }
 
 function Update () {
+	canvasText.text = brawlers[0].currentHealth + "/" + brawlers[0].myClass.health; 
+	canvasText2.text = brawlers[1].currentHealth + "/" + brawlers[1].myClass.health; 
 	
+	healthBarW.rectTransform.right.x = brawlers[0].currentHealth * health1divider;
+	healthBarW2.rectTransform.right.x = brawlers[1].currentHealth * health2divider;
 }
 
 function CalDamageTaken(attack : float, modifier : float, multiplier : float) {

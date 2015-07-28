@@ -4,11 +4,11 @@ var isPlayer : boolean;
 var isBoss : boolean;
 var difficulty : int;
 var myClass : Class;
-
-
 var childCollider : BoxCollider2D;
 
-private var myAnimator : Animator;
+var currentHealth : int;
+
+private var myAnimator : Animator; 
 
 private var direction : String;
 
@@ -23,6 +23,8 @@ private var collider2X : float;
 
 function Start () {
 	myAnimator = gameObject.GetComponent("Animator");
+	
+	currentHealth = myClass.health;
 	
 	collider1 = gameObject.GetComponent("BoxCollider2D");
 	collider2 = childCollider;

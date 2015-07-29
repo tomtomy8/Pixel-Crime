@@ -17,6 +17,17 @@ function Start () {
 
 function Update () {
 	healthBar.fillAmount = health1divider * brawlers[0].currentHealth;
+	healthText.text = brawlers[0].currentHealth + "/" + brawlers[0].myClass.health;
+	if(brawlers[0].currentHealth <= 0) {
+		brawlers[0].currentHealth = 0;
+		healthText.text = "Dead";
+		healthText.color = Color.red;
+	} else if (brawlers[0].currentHealth > brawlers[0].myClass.health) {
+		brawlers[0].currentHealth = brawlers[0].myClass.health;
+	}
+		else {
+		healthText.color = Color.black;
+	}
 }
 
 function CalDamageTaken(attack : float, modifier : float, multiplier : float) {

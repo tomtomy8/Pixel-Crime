@@ -15,7 +15,6 @@ function Update () {
 		transform.LookAt(player.transform);
 		transform.translate(Time.deltaTime * myBrawler.myClass.Speed, 0, 0);
 	}
-	Debug.DrawLine(gameObject.transform.position, player.transform.position, Color.red);
 }
 
 function On2DTriggerEnter(col : Collider2D) {

@@ -1,12 +1,23 @@
-﻿var edits : UI.Text[];
+﻿import System.IO;
+
+var edits : UI.Text[];
 var Images : UI.Image[];
 
-var criminalsInArea : Class[];
+private var criminalsInArea : Class[];
+
+var areas : Area[];
+
+private var currentArea : Area;
 
 function Start () {
-	
+	currentArea = areas[0];
+	initNewArea();
 }
 
 function Update () {
+	
+}
 
+function initNewArea () {
+	edits[0].text = "Current Area: " + currentArea.areaName;
 }

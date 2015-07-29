@@ -46,6 +46,7 @@
 	</Reference>
   </ItemGroup>
   <ItemGroup>
+     <Compile Include="Assets\Scripts\Area.js" />
      <Compile Include="Assets\Scripts\Battle.js" />
      <Compile Include="Assets\Scripts\Brawler.js" />
      <Compile Include="Assets\Scripts\Class.js" />

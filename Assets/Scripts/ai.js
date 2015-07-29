@@ -15,12 +15,22 @@ function Update () {
 		transform.LookAt(player.transform);
 		transform.Translate(Time.deltaTime * myBrawler.myClass.Speed, 0, 0);
 	}
+	gameObject.transform.rotation.x = 0;
+	gameObject.transform.rotation.y = 180;
 }
 
-function On2DTriggerEnter(col : Collider2D) {
+function OnTriggerEnter2D(col : Collider2D) {
 	if(col.gameObject == player) {
 		isAtPlayer = true;
 	} else {
 		isAtPlayer = false;
 	}
 }	
+
+function OnTriggerExit2D(col : Collider2D) {
+	if(col.gameObject == player) {
+		isAtPlayer = false;
+	} else {
+		isAtPlayer = true;
+	}
+}

@@ -13,25 +13,34 @@ var myCamera : Camera;
 
 var arrows : UI.Button[];
 
+var isZoomedIn : boolean;
+
 function Start () {
 	currentArea = areas[0];
 	initNewArea();
+	isZoomedIn = true;
 }
 
 function Update () {
-	
+	if(isZoomedIn) {
+		myCamera.orthographicSize = 0.2;
+	} else {
+		myCamera.orthographicSize = 1.13;
+	}
 }
 
 function initNewArea () {
-	edits[0].text = "Current Area: " + currentArea.areaName;
-	myCamera.transform.position = Vector3.Lerp(myCamera.transform.position, currentArea.gameObject.transform.position, 1);
-	if(checkForEndOfArray.Equals("Beg")) {
-		arrows[0].enabled = false;
-	} else if (checkForEndOfArray.Equals("End")) {
-		arrows[1].enabled = false;
-	} else {
-		arrows[0].enabled = true;
-		arrows[1].enabled = true;
+	if(isZoomedIn) {
+		edits[0].text = "Current Area: " + currentArea.areaName;
+		myCamera.transform.position = Vector3.Lerp(myCamera.transform.position, currentArea.gameObject.transform.position, 1);
+		if(checkForEndOfArray.Equals("Beg")) {
+			arrows[0].enabled = false;
+		} else if (checkForEndOfArray.Equals("End")) {
+			arrows[1].enabled = false;
+		} else {
+			arrows[0].enabled = true;
+			arrows[1].enabled = true;
+		}
 	}
 }
 
@@ -86,4 +95,16 @@ function checkForEndOfArray() {
 	} else if (currentArea.areaName.Equals("Plymouth")) {
 		return "End";
 	}
+}
+
+function zoomIn() {
+	isZoomedIn = true;
+}
+
+function zoomOut() {
+	isZoomedIn = false;
+}
+
+function getZoom() {
+	return isZoomedIn;
 }

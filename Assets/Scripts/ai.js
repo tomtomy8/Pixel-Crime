@@ -13,7 +13,7 @@ function Start () {
 function Update () {
 	if(!isAtPlayer) {
 		transform.LookAt(player.transform);
-		transform.translate(Time.deltaTime * myBrawler.myClass.Speed, 0, 0);
+		transform.Translate(Time.deltaTime * myBrawler.myClass.Speed, 0, 0);
 	}
 }
 
@@ -21,6 +21,6 @@ function On2DTriggerEnter(col : Collider2D) {
 	if(col.gameObject == player) {
 		isAtPlayer = true;
 	} else {
-		ifAtPlayer = false;
+		isAtPlayer = false;
 	}
 }	

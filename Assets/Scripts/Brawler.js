@@ -1,8 +1,6 @@
 ﻿#pragma strict
 
 var isPlayer : boolean;
-var isBoss : boolean;
-var difficulty : int;
 var myClass : Class;
 var childCollider : BoxCollider2D;
 
@@ -55,11 +53,11 @@ function Move () {
 	if(direction == "right") {
 		myAnimator.SetFloat("Speed", 1);
 		myAnimator.SetBool("IsFacingRight", true);
-		transform.Translate(Time.deltaTime, 0, 0);		
+		transform.Translate(Time.deltaTime * myClass.Speed, 0, 0);		
 	} else if (direction == "left") {
 		myAnimator.SetFloat("Speed", -1);
 		myAnimator.SetBool("IsFacingRight", false);
-		transform.Translate(-(Time.deltaTime), 0, 0);
+		transform.Translate(-(Time.deltaTime * myClass.Speed), 0, 0);
 	} else {
 		transform.Translate(0,0,0);
 		myAnimator.SetFloat("Speed", 0);

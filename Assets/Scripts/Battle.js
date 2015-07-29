@@ -27,16 +27,18 @@ function Start () {
 	canvasText = healthBarW.GetComponentInChildren(UI.Text);
 	canvasText2 = healthBarW2.GetComponentInChildren(UI.Text);
 	
-	health1divider = brawlers[0].myClass.health/healthBarW.rectTransform.right.x;
-	health2divider = brawlers[1].myClass.health/healthBarW2.rectTransform.right.x;
 }
 
 function Update () {
 	canvasText.text = brawlers[0].currentHealth + "/" + brawlers[0].myClass.health; 
 	canvasText2.text = brawlers[1].currentHealth + "/" + brawlers[1].myClass.health; 
 	
+	health1divider = healthBarW.rectTransform.right.x * (brawlers[0].currentHealth/brawlers[0].myClass.health);
+	health2divider = healthBarW2.rectTransform.right.x * (brawlers[0].currentHealth/brawlers[0].myClass.health);
+	
 	healthBarW.rectTransform.right.x = brawlers[0].currentHealth * health1divider;
 	healthBarW2.rectTransform.right.x = brawlers[1].currentHealth * health2divider;
+		
 }
 
 function CalDamageTaken(attack : float, modifier : float, multiplier : float) {

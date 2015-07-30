@@ -54,6 +54,16 @@ function Update () {
 			direction = null;
 		} 
 		Move();
+		
+		if (Input.GetKeyDown("z")){
+			var forward= transform.TransformDirection(Vector3.forward);
+			var hit : RaycastHit;
+			Debug.DrawRay(transform.position, -forward * 10, Color.green); // or Debug only
+			if(Physics.Raycast(transform.position, -forward, hit, 10)){
+				Debug.Log("Hit");
+				
+			}
+		}
 	}
 }
 
@@ -82,7 +92,7 @@ function Move () {
 function checkColliderDirection() {
 	if(myAnimator.GetBool("IsFacingRight")) {
 		collider1.offset = Vector2(collider1X, collider1Y);
-//		collider2.offset = Vector2(collider2X, collider2Y);
+		collider2.offset = Vector2(collider2X, collider2Y);
 	} else {
 		collider1.offset = Vector2(-0.005, collider1Y);
 		collider2.offset = Vector2(-0.009, collider2Y);
@@ -93,17 +103,4 @@ function attack(target : Brawler, attackStrength : int) {
 	var battleObject : Battle = transform.Find("Background").gameObject.GetComponent("Battle");
 	var tmp : int = battleObject.CalDamageTaken(myClass.Attack + attackStrength, -(target.myClass.Defense), 2);
 	target.currentHealth = target.currentHealth-tmp;
-}
-
-function OnTriggerEnter2D(col : Collider2D) {
-	if(myAnimator.GetBool("Attacking")) {
-		if(col.gameObject.tag == "Brawler") {
-			 attack(col.GetComponent("Brawler"), 1); 
-		}
-	}
-	if(myAnimator.GetBool("Attacking2")) {
-		if(col.gameObject.tag == "Brawler") {
-			 attack(col.GetComponent("Brawler"), 2);
-		}
-	}
 }

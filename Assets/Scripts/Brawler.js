@@ -48,6 +48,8 @@ function Update () {
 			direction = "left"; 
 		} else if(Input.GetKeyDown("z")){
 			direction = "attack1";
+		} else if(Input.GetKeyDown("x")){
+			direction = "attack2";
 		} else if (!Input.anyKey){
 			direction = null;
 		} 
@@ -67,20 +69,41 @@ function Move () {
 		transform.Translate(-(Time.deltaTime * myClass.Speed), 0, 0);
 	} else if (direction == "attack1") {
 		myAnimator.SetBool("Attacking", true);
-		Debug.Log("Attacked");
+	} else if (direction == "attack2"){
+		myAnimator.SetBool("Attacking2", true);
 	} else {
 		transform.Translate(0,0,0);
 		myAnimator.SetFloat("Speed", 0);
 		myAnimator.SetBool("Attacking", false);
+		myAnimator.SetBool("Attacking2", false);
 	}
 }
 
 function checkColliderDirection() {
 	if(myAnimator.GetBool("IsFacingRight")) {
 		collider1.offset = Vector2(collider1X, collider1Y);
-		collider2.offset = Vector2(collider2X, collider2Y);
+//		collider2.offset = Vector2(collider2X, collider2Y);
 	} else {
 		collider1.offset = Vector2(-0.005, collider1Y);
 		collider2.offset = Vector2(-0.009, collider2Y);
+	}
+}
+
+function attack(target : Brawler, attackStrength : int) {
+	var battleObject : Battle = transform.Find("Background").gameObject.GetComponent("Battle");
+	var tmp : int = battleObject.CalDamageTaken(myClass.Attack + attackStrength, -(target.myClass.Defense), 2);
+	target.currentHealth = target.currentHealth-tmp;
+}
+
+function OnTriggerEnter2D(col : Collider2D) {
+	if(myAnimator.GetBool("Attacking")) {
+		if(col.gameObject.tag == "Brawler") {
+			 attack(col.GetComponent("Brawler"), 1); 
+		}
+	}
+	if(myAnimator.GetBool("Attacking2")) {
+		if(col.gameObject.tag == "Brawler") {
+			 attack(col.GetComponent("Brawler"), 2);
+		}
 	}
 }

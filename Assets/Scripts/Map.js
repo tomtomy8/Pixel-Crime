@@ -15,32 +15,43 @@ var arrows : UI.Button[];
 
 var isZoomedIn : boolean;
 
+var mapImage : UI.Image;
+var button : UI.Button;
+
 function Start () {
 	currentArea = areas[0];
 	initNewArea();
+}
+
+function Awake () {
 	isZoomedIn = true;
 }
 
 function Update () {
+	arrows[0].gameObject.SetActive(isZoomedIn);
+	arrows[1].gameObject.SetActive(isZoomedIn);
+	mapImage.gameObject.SetActive(isZoomedIn);
+	edits[0].gameObject.SetActive(isZoomedIn);
+	button.gameObject.SetActive(isZoomedIn);
 	if(isZoomedIn) {
-		myCamera.orthographicSize = 0.2;
+		myCamera.orthographicSize = 0.22;
 	} else {
-		myCamera.orthographicSize = 1.13;
+		myCamera.orthographicSize = 1.18;
 	}
 }
 
 function initNewArea () {
-	if(isZoomedIn) {
+	if(getZoom()) {
 		edits[0].text = "Current Area: " + currentArea.areaName;
 		myCamera.transform.position = Vector3.Lerp(myCamera.transform.position, currentArea.gameObject.transform.position, 1);
-		if(checkForEndOfArray.Equals("Beg")) {
+		/*if(checkForEndOfArray.Equals("Beg")) {
 			arrows[0].enabled = false;
 		} else if (checkForEndOfArray.Equals("End")) {
 			arrows[1].enabled = false;
 		} else {
 			arrows[0].enabled = true;
 			arrows[1].enabled = true;
-		}
+		}*/
 	}
 }
 
@@ -76,25 +87,11 @@ function EnterBattle() {
 }	
 
 function checkForEndOfArray() {
-	/*var arr = new System.Collections.ArrayList();
-	
-	for(var x = 0; x<areas.length; x++) {
-		arr.Add(areas[x]);
-	}
-	
-	var tmp = arr.IndexOf(currentArea);
-	if(tmp==0) {
-		return "Beg";
-	} else if (tmp==areas.length) {
-		return "End";
-	} else {
-		return null;
-	}*/
-	if(currentArea.areaName.Equals("Aberystwyth")) {
+	/*if(currentArea.areaName.Equals("Aberystwyth")) {
 		return "Beg";
 	} else if (currentArea.areaName.Equals("Plymouth")) {
 		return "End";
-	}
+	}*/
 }
 
 function zoomIn() {

@@ -1,5 +1,4 @@
-﻿@System.NonSerializedAttribute
-var areaName : String;
+﻿var areaName : String;
 
 private var criminal1 : Class;
 private var criminal2 : Class;
@@ -13,7 +12,6 @@ var lat : float;
 var cordonates : Vector3;
 
 function Start () {
-	areaName = gameObject.name;
 	cordonates = gameObject.transform.position;
 }
 

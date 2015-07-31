@@ -13,8 +13,6 @@ var myCamera : Camera;
 
 var arrows : UI.Button[];
 
-var isZoomedIn : boolean;
-
 var mapImage : UI.Image;
 var button : UI.Button;
 
@@ -24,29 +22,15 @@ function Start () {
 }
 
 function Awake () {
-	isZoomedIn = true;
 	myCamera.orthographicSize = 0.22;
 }
 
 function Update () {
-	arrows[0].gameObject.SetActive(isZoomedIn);
-	arrows[1].gameObject.SetActive(isZoomedIn);
-	edits[0].gameObject.SetActive(isZoomedIn);
-	button.gameObject.SetActive(isZoomedIn);
 }
 
 function initNewArea () {
-	
 		edits[0].text = "Current Area: " + currentArea.areaName;
 		myCamera.transform.position = Vector3.Lerp(myCamera.transform.position, currentArea.gameObject.transform.position, 1);
-		/*if(checkForEndOfArray.Equals("Beg")) {
-			arrows[0].enabled = false;
-		} else if (checkForEndOfArray.Equals("End")) {
-			arrows[1].enabled = false;
-		} else {
-			arrows[0].enabled = true;
-			arrows[1].enabled = true;
-		}*/
 	
 }
 
@@ -80,11 +64,3 @@ function EnterBattle() {
 	var lonlat = [currentArea.lat, currentArea.lon];
 	gameObject.SendMessage("find", lonlat);
 }	
-
-function checkForEndOfArray() {
-	/*if(currentArea.areaName.Equals("Aberystwyth")) {
-		return "Beg";
-	} else if (currentArea.areaName.Equals("Plymouth")) {
-		return "End";
-	}*/
-}

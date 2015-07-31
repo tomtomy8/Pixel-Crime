@@ -51,6 +51,7 @@
      <Compile Include="Assets\Scripts\Brawler.js" />
      <Compile Include="Assets\Scripts\Class.js" />
      <Compile Include="Assets\Scripts\FindThumb.js" />
+     <Compile Include="Assets\Scripts\Loading.js" />
      <Compile Include="Assets\Scripts\Map.js" />
      <Compile Include="Assets\Scripts\SceneScene.js" />
      <Compile Include="Assets\Scripts\Zoomed out map.js" />

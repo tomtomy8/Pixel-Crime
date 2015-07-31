@@ -25,3 +25,7 @@ Cmd: compileSnippet
   api=4 type=0 insize=938 outsize=4036 kw=DIRECTIONAL SHADOWS_OFF ok=1
 Cmd: compileSnippet
   api=4 type=1 insize=938 outsize=5515 kw=DIRECTIONAL SHADOWS_OFF ok=1
+Cmd: compileSnippet
+  api=4 type=0 insize=1482 outsize=1290 kw=SOFTPARTICLES_OFF ok=1
+Cmd: compileSnippet
+  api=4 type=1 insize=1482 outsize=827 kw=SOFTPARTICLES_OFF ok=1

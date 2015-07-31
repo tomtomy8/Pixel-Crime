@@ -20,6 +20,7 @@ function Update () {
 		if(brawlers[i].currentHealth <= 0) {
 			healthTexts[i].text = "Dead";
 			healthTexts[i].color = Color.red;
+			brawlers[i].die();
 		} else {
 			healthTexts[i].color = Color.black;
 		}	

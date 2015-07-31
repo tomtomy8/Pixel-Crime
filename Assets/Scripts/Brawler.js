@@ -22,11 +22,11 @@ private var collider2X : float;
 
 
 function Awake () {
-	myAnimator = gameObject.GetComponent("Animator");
+	myAnimator = gameObject.GetComponent(Animator);
 	
 	currentHealth = myClass.health;
 	
-	collider1 = gameObject.GetComponent("BoxCollider2D");
+	collider1 = gameObject.GetComponent(BoxCollider2D);
 	collider2 = childCollider;
 	
 	collider1Y = collider1.offset.y;
@@ -57,17 +57,13 @@ function Update () {
 		var up = Vector2.right;
 		
    		var hit : RaycastHit;    
-   		Debug.DrawRay(Vector3(transform.position.x+0.5, transform.position.y, transform.position.z), up * 0.8, Color.green);
-   		Debug.Log("Hita");    
+   		Debug.DrawRay(Vector3(transform.position.x+0.5, transform.position.y, transform.position.z), up * 0.8, Color.green); 
 		if(Physics2D.Raycast(Vector2(transform.position.x+0.5, transform.position.y), up,  0.8, LayerMask.GetMask("Brawlers"))){
 			if(direction == "attack1" || direction == "attack2") {
-    			Debug.Log("Hit");    
     			GameObject.Find("Mugger Enemy").gameObject.GetComponent(Brawler).currentHealth--;
     		}
   	 	}
-	} else {
-		Debug.Log(currentHealth);
-	}
+	} 
 	gameObject.transform.position.z = 0;
 }
 
@@ -103,4 +99,12 @@ function checkColliderDirection() {
 		collider1.offset = Vector2(-0.005, collider1Y);
 		collider2.offset = Vector2(-0.009, collider2Y);
 	}
+}
+
+function die () {
+	gameObject.GetComponent(Animator).enabled = false;
+	transform.rotation.z = transform.rotation.z + 90;
+	GameObject.Find("Text").GetComponent(Animation).Play();
+	yield WaitForSeconds(2);
+	Application.LoadLevel(0);
 }

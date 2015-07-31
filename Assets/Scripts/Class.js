@@ -5,3 +5,4 @@ var health : int;
 var Attack : int;
 var Defense : int;
 var Speed : int; 
+var thumb : Sprite;

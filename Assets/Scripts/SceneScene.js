@@ -1,9 +1,9 @@
 ﻿#pragma strict
 
-var opponent : Brawler;
+var opponent : Class;
 
 function Start () {
-
+	gameObject.DontDestroyOnLoad(gameObject);
 }
 
 function Update () {

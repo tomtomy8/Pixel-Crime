@@ -25,23 +25,18 @@ function Start () {
 
 function Awake () {
 	isZoomedIn = true;
+	myCamera.orthographicSize = 0.22;
 }
 
 function Update () {
 	arrows[0].gameObject.SetActive(isZoomedIn);
 	arrows[1].gameObject.SetActive(isZoomedIn);
-	mapImage.gameObject.SetActive(isZoomedIn);
 	edits[0].gameObject.SetActive(isZoomedIn);
 	button.gameObject.SetActive(isZoomedIn);
-	if(isZoomedIn) {
-		myCamera.orthographicSize = 0.22;
-	} else {
-		myCamera.orthographicSize = 1.18;
-	}
 }
 
 function initNewArea () {
-	if(getZoom()) {
+	
 		edits[0].text = "Current Area: " + currentArea.areaName;
 		myCamera.transform.position = Vector3.Lerp(myCamera.transform.position, currentArea.gameObject.transform.position, 1);
 		/*if(checkForEndOfArray.Equals("Beg")) {
@@ -52,7 +47,7 @@ function initNewArea () {
 			arrows[0].enabled = true;
 			arrows[1].enabled = true;
 		}*/
-	}
+	
 }
 
 function nextArea() {
@@ -92,16 +87,4 @@ function checkForEndOfArray() {
 	} else if (currentArea.areaName.Equals("Plymouth")) {
 		return "End";
 	}*/
-}
-
-function zoomIn() {
-	isZoomedIn = true;
-}
-
-function zoomOut() {
-	isZoomedIn = false;
-}
-
-function getZoom() {
-	return isZoomedIn;
 }

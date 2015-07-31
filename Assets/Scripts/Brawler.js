@@ -54,17 +54,21 @@ function Update () {
 			direction = null;
 		} 
 		Move();
+		var up = Vector2.right;
 		
-		if (Input.GetKeyDown("z")){
-			var forward= transform.TransformDirection(Vector3.forward);
-			var hit : RaycastHit;
-			Debug.DrawRay(transform.position, -forward * 10, Color.green); // or Debug only
-			if(Physics.Raycast(transform.position, -forward, hit, 10)){
-				Debug.Log("Hit");
-				
-			}
-		}
+   		var hit : RaycastHit;    
+   		Debug.DrawRay(Vector3(transform.position.x+0.5, transform.position.y, transform.position.z), up * 0.8, Color.green);
+   		Debug.Log("Hita");    
+		if(Physics2D.Raycast(Vector2(transform.position.x+0.5, transform.position.y), up,  0.8, LayerMask.GetMask("Brawlers"))){
+			if(direction == "attack1" || direction == "attack2") {
+    			Debug.Log("Hit");    
+    			GameObject.Find("Mugger Enemy").gameObject.GetComponent(Brawler).currentHealth--;
+    		}
+  	 	}
+	} else {
+		Debug.Log(currentHealth);
 	}
+	gameObject.transform.position.z = 0;
 }
 
 function Move () {
@@ -79,8 +83,10 @@ function Move () {
 		transform.Translate(-(Time.deltaTime * myClass.Speed), 0, 0);
 	} else if (direction == "attack1") {
 		myAnimator.SetBool("Attacking", true);
-	} else if (direction == "attack2"){
+		Debug.Log("Attacked");
+	} else if (direction == "attack2") {
 		myAnimator.SetBool("Attacking2", true);
+		Debug.Log("Attacked");
 	} else {
 		transform.Translate(0,0,0);
 		myAnimator.SetFloat("Speed", 0);
@@ -97,10 +103,4 @@ function checkColliderDirection() {
 		collider1.offset = Vector2(-0.005, collider1Y);
 		collider2.offset = Vector2(-0.009, collider2Y);
 	}
-}
-
-function attack(target : Brawler, attackStrength : int) {
-	var battleObject : Battle = transform.Find("Background").gameObject.GetComponent("Battle");
-	var tmp : int = battleObject.CalDamageTaken(myClass.Attack + attackStrength, -(target.myClass.Defense), 2);
-	target.currentHealth = target.currentHealth-tmp;
 }

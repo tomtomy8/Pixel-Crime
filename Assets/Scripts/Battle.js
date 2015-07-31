@@ -14,7 +14,16 @@ function Start () {
 }
 
 function Update () {
-	
+	for(var i=0; i<2; i++) {
+		healthBars[i].fillAmount = healthdividers[i] * brawlers[i].currentHealth;
+		healthTexts[i].text = brawlers[i].currentHealth + "/" + brawlers[i].myClass.health;
+		if(brawlers[i].currentHealth <= 0) {
+			healthTexts[i].text = "Dead";
+			healthTexts[i].color = Color.red;
+		} else {
+			healthTexts[i].color = Color.black;
+		}	
+	}	
 }
 
 function CalDamageTaken(attack : float, modifier : float, multiplier : float) {

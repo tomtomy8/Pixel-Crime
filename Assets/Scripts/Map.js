@@ -64,3 +64,7 @@ function EnterBattle() {
 	var lonlat = [currentArea.lat, currentArea.lon];
 	gameObject.SendMessage("find", lonlat);
 }	
+
+function DynamicUI (){
+
+}

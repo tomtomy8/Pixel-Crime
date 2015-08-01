@@ -66,5 +66,5 @@ function EnterBattle() {
 }	
 
 function DynamicUI (){
-
+	
 }

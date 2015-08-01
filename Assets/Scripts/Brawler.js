@@ -8,9 +8,13 @@ var currentHealth : int;
 var thumb : UI.Image;
 var myThumb : Sprite;
 
+@System.NonSerialized
+var rayCastHitting : boolean;
+
 private var myAnimator : Animator; 
 
-private var direction : String;
+@System.NonSerialized
+var direction : String;
 
 private var collider1 : BoxCollider2D;
 private var collider2 : BoxCollider2D;
@@ -20,7 +24,9 @@ private var collider2Y : float;
 private var collider1X : float;
 private var collider2X : float;
 
+private var up : Vector2;
 
+private var num : float;
 function Awake () {
 	myAnimator = gameObject.GetComponent(Animator);
 	
@@ -37,6 +43,9 @@ function Awake () {
 
 function Start () {
 	thumb.overrideSprite = myThumb;
+	if(!isPlayer) {
+		myAnimator.SetBool("IsFacingRight", false);
+	}
 }
 
 function Update () {
@@ -46,29 +55,47 @@ function Update () {
 			direction = "right";
 		} else if(Input.GetKeyDown("a")) {
 			direction = "left"; 
-		} else if(Input.GetKeyDown("z")){
+		} else if(Input.GetKeyUp("z")){
 			direction = "attack1";
-		} else if(Input.GetKeyDown("x")){
+		} else if(Input.GetKeyUp("x")){
 			direction = "attack2";
 		} else if (!Input.anyKey){
 			direction = null;
 		} 
 		Move();
-		var up = Vector2.right;
 		
-   		var hit : RaycastHit;    
-   		Debug.DrawRay(Vector3(transform.position.x+0.5, transform.position.y, transform.position.z), up * 0.8, Color.green); 
-		if(Physics2D.Raycast(Vector2(transform.position.x+0.5, transform.position.y), up,  0.8, LayerMask.GetMask("Brawlers"))){
-			if(direction == "attack1" || direction == "attack2") {
-    			GameObject.Find("Mugger Enemy").gameObject.GetComponent(Brawler).currentHealth--;
-    		}
-  	 	}
 	} 
+	if(myAnimator.GetBool("IsFacingRight")) {
+		up = Vector2.right;
+		num = 0.5;
+	} else {
+		up = Vector2.left;
+		num = -0.5;
+	}
+	
+   	var hit : RaycastHit;    
+   	Debug.DrawRay(Vector3(transform.position.x+num, transform.position.y, transform.position.z), up * 0.8, Color.green); 
+	if(Physics2D.Raycast(Vector2(transform.position.x+num, transform.position.y), up,  0.8, LayerMask.GetMask("Brawlers"))){
+		if(!isPlayer) {
+			rayCastHitting = true;
+		}
+		if(direction == "attack1" || direction == "attack2") {
+			if(isPlayer) {
+    			GameObject.Find("Enemy").gameObject.GetComponent(Brawler).currentHealth--;
+    		} else {
+    			GameObject.Find("Character").gameObject.GetComponent(Brawler).currentHealth--;			
+    		}
+    	}
+  	 } else {
+  	 	if(!isPlayer) {
+  	 		rayCastHitting = false;
+  	 	}
+  	 }
 	gameObject.transform.position.z = 0;
+	Attack();
 }
 
 function Move () {
-	
 	if(direction == "right") {
 		myAnimator.SetFloat("Speed", 1);
 		myAnimator.SetBool("IsFacingRight", true);
@@ -77,15 +104,20 @@ function Move () {
 		myAnimator.SetFloat("Speed", -1);
 		myAnimator.SetBool("IsFacingRight", false);
 		transform.Translate(-(Time.deltaTime * myClass.Speed), 0, 0);
-	} else if (direction == "attack1") {
+	} else {
+		myAnimator.SetFloat("Speed", 0);
+		transform.Translate(0,0,0);
+	} 
+}
+
+function Attack () {
+	if (direction == "attack1") {
 		myAnimator.SetBool("Attacking", true);
 		Debug.Log("Attacked");
 	} else if (direction == "attack2") {
 		myAnimator.SetBool("Attacking2", true);
 		Debug.Log("Attacked");
 	} else {
-		transform.Translate(0,0,0);
-		myAnimator.SetFloat("Speed", 0);
 		myAnimator.SetBool("Attacking", false);
 		myAnimator.SetBool("Attacking2", false);
 	}
@@ -100,6 +132,7 @@ function checkColliderDirection() {
 		collider2.offset = Vector2(-0.009, collider2Y);
 	}
 }
+
 
 function die () {
 	gameObject.GetComponent(Animator).enabled = false;
